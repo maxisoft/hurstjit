@@ -4,7 +4,7 @@ import os
 import sys
 import numpy as np
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from hurst import compute_Hc
+from hurstjit import compute_Hc
 
 def test_hurst():
     np.random.seed(42)

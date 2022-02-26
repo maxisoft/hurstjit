@@ -1,29 +1,30 @@
-# hurst
+# hurstjit
 ## Hurst exponent evaluation and R/S-analysis
 
-![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
 ![Python 3x](https://img.shields.io/badge/python-3.x-blue.svg)
-[![Build Status](https://travis-ci.org/Mottl/hurst.svg?branch=master)](https://travis-ci.org/Mottl/hurst)
-[![pypi](https://img.shields.io/pypi/v/hurst.svg)](https://pypi.org/project/hurst/)
-[![Downloads](https://pepy.tech/badge/hurst)](https://pepy.tech/project/hurst)
+[![Build Status](https://travis-ci.org/maxisoft/hurstjit.svg?branch=main)](https://travis-ci.org/maxisoft/hurstjit)
 
-**hurst** is a small Python module for analysing __random walks__ and evaluating the __Hurst exponent (H)__.
+**hurstjit** is a small Python module for analysing __random walks__ and evaluating the __Hurst exponent (H)__.
 
 H = 0.5 — Brownian motion,  
 0.5 < H < 1.0 — persistent behavior,  
 0 < H < 0.5 — anti-persistent behavior.  
 
 ## Installation
-Install **hurst** module with  
-`pip install hurst`  
-or    
-`pip install -e git+https://github.com/Mottl/hurst#egg=hurst`
+Install **hurstjit** module with
+`pip install git+https://github.com/maxisoft/hurstjit`
+
+## Note
+This is a fork from [Mottl/hurst](https://github.com/Mottl/hurst) which use numba jit in order to get great performance boost.  
+Exemple code is more than 100x time faster (timeit from 1.67 sec to 12.2 ms)
+
 
 ## Usage
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-from hurst import compute_Hc, random_walk
+from hurstjit import compute_Hc, random_walk
 
 # Use random_walk() function or generate a random walk series manually:
 # series = random_walk(99999, cumprod=True)
@@ -36,7 +37,7 @@ H, c, data = compute_Hc(series, kind='price', simplified=True)
 
 # Plot
 f, ax = plt.subplots()
-ax.plot(data[0], c*data[0]**H, color="deepskyblue")
+ax.plot(data[0], c * data[0] ** H, color="deepskyblue")
 ax.scatter(data[0], data[1], color="purple")
 ax.set_xscale('log')
 ax.set_yscale('log')
@@ -45,7 +46,7 @@ ax.set_ylabel('R/S ratio')
 ax.grid(True)
 plt.show()
 
-print("H={:.4f}, c={:.4f}".format(H,c))
+print("H={:.4f}, c={:.4f}".format(H, c))
 ```
 
 ![R/S analysis](https://github.com/Mottl/hurst/raw/master/examples/regression.png?raw=true "R/S analysis")
